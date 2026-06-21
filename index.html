@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Staff | HYLORMC</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="page-header">
+    <div class="header-content">
+      <div class="left-call">
+        <img src="images/connect-icon.gif" alt="Conectar" class="connect-icon" />
+        <div class="connect-text">
+          <strong>CONECTE-SE JÁ!</strong>
+          <span>8 online • Clique para jogar</span>
+        </div>
+      </div>
+
+      <a href="https://loja.HYLORMC.com/" class="logo-link" target="_blank">
+        <img src="images/logo.png" alt="Logo do servidor" class="logo-image" />
+      </a>
+
+      <a href="https://discord.gg/XK6SzEAatz" class="discord-call" target="_blank">
+        <img src="images/discord-icon.png" alt="Entrar no Discord" class="discord-icon" />
+        <div class="discord-text">
+          <strong>ENTRAR NO DISCORD</strong>
+          <span>Participe da comunidade</span>
+        </div>
+      </a>
+    </div>
+  </header>
+
+  <main class="team-section">
+
+    <section class="staff-group owner">
+      <header class="group-header">DONOS (1)</header>
+      <div class="group-body" id="owner-group"></div>
+    </section>
+
+    <section class="staff-group admin">
+      <header class="group-header">ADMINISTRADORES (1)</header>
+      <div class="group-body" id="adm-group"></div>
+    </section>
+
+    <section class="staff-group mod-plus">
+      <header class="group-header">MODERADORES+ (0)</header>
+      <div class="group-body" id="mod-plus-group"></div>
+    </section>
+
+    <section class="staff-group mod">
+      <header class="group-header">MODERADORES (0)</header>
+      <div class="group-body" id="mod-group"></div>
+    </section>
+
+    <section class="staff-group trial">
+      <header class="group-header">TRIALS (0)</header>
+      <div class="group-body" id="trial-group"></div>
+    </section>
+
+    <section class="staff-group helper">
+      <header class="group-header">HELPERS (0)</header>
+      <div class="group-body" id="helper-group">
+        <div class="no-one">Nenhum membro</div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    const groups = {
+      donos: {
+        elementId: 'owner-group',
+        cssClass: 'owner',
+        headerText: 'DONOS',
+        members: [
+          { name: 'chicomania', image: 'images/staff2.png', role:'Dono' },
+		  { name: 'mucasz', image: 'images/staff5.png', role:'Resp. Eventos' },
+		  { name: 'Px', image: 'images/staff4.png', role:'Resp. Promoções' },		  
+        ],
+      },
+
+      administradores: {
+        elementId: 'adm-group',
+        cssClass: 'admin',
+        headerText: 'ADMINISTRADORES',
+        members: [
+          { name: 'pg_0', image: 'images/staff1.png', role:'Formularios' },
+		  { name: 'Knzd7', image: 'images/staff3.png', role:'Formularios' },
+        ],
+      },
+
+      moderadoresPlus: {
+        elementId: 'mod-plus-group',
+        cssClass: 'mod-plus',
+        headerText: 'MODERADORES+',
+        members: [],
+      },
+
+      moderadores: {
+        elementId: 'mod-group',
+        cssClass: 'mod',
+        headerText: 'MODERADORES',
+        members: [],
+      },
+
+      trials: {
+        elementId: 'trial-group',
+        cssClass: 'trial',
+        headerText: 'TRIALS',
+        members: [],
+      },
+
+      helpers: {
+        elementId: 'helper-group',
+        cssClass: 'helper',
+        headerText: 'HELPERS',
+        members: [
+        { name: 'Lostxx_', image: 'images/staff6.png', role:'Punições' },
+        { name: '_Nerdzola', image: 'images/steve.png', role:'Atendimentos' },			
+		],
+      },
+    };
+
+    Object.keys(groups).forEach(key => {
+      const group = groups[key];
+      const container = document.getElementById(group.elementId);
+      const header = container?.closest('.staff-group')?.querySelector('.group-header');
+
+      if (header) header.textContent = `${group.headerText} (${group.members.length})`;
+
+      if (!container || !group.members.length) {
+        if (container) {
+          container.innerHTML = '<div class="no-one">Nenhum membro</div>';
+        }
+        return;
+      }
+
+      container.innerHTML = group.members.map(member => `
+        <div class="member-card ${group.cssClass}">
+          <img src="${member.image}" alt="${member.name}" />
+          <div class="member-name">${member.name}</div>
+          <small class="member-role">${member.role}</small>
+        </div>
+      `).join('');
+    });
+
+    const leftCall = document.querySelector('.left-call');
+    leftCall.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText('HYLORMC.com');
+        const original = leftCall.querySelector('.connect-text span').textContent;
+        leftCall.querySelector('.connect-text span').textContent = 'HYLORMC.com copiado!';
+        setTimeout(() => {
+          leftCall.querySelector('.connect-text span').textContent = original;
+        }, 1600);
+      } catch (e) {
+        console.error('Falha ao copiar:', e);
+      }
+    });
+  </script>
+
+  <footer class="site-footer">
+    <p>©2026 HYLORMC | Todos os Direitos Reservados.</p>
+  </footer>
+</body>
+</html>
